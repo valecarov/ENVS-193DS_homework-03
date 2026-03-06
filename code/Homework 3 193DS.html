@@ -73,6 +73,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="Homework 3 193DS_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="Homework 3 193DS_files/libs/bootstrap/bootstrap-9e3ffae467580fdb927a41352e75a2e0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -147,8 +176,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Salinity (mS/cm"</span>, <span class="co"># labelling x axis</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Pickleweed Biomass (g)"</span>, <span class="co"># labelling y axis</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"As Salinity Increases, Biomass Increases"</span>) <span class="sc">+</span> <span class="co"># making a title</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title.position =</span> <span class="st">"plot"</span>) <span class="sc">+</span> <span class="co"># changing title position</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="co"># changing theme to minimal</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="co"># adding linear model line</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">"magenta"</span>) <span class="sc">+</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title.position =</span> <span class="st">"plot"</span>) <span class="sc">+</span> <span class="co"># changing title position</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="co"># changing theme to minimal</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -189,12 +220,8 @@ F-statistic: 8.398 on 1 and 21 DF,  p-value: 0.008605</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>salinity_pred <span class="ot">&lt;-</span> ggeffects<span class="sc">::</span><span class="fu">ggpredict</span>(salinity_lm, <span class="co"># making predictions based on linear model</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">terms =</span> <span class="st">"salinity_mS_cm"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co"># making residual plots to check assumptions</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(salinity_lm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co"># making residual plots to check assumptions</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(salinity_lm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -204,24 +231,9 @@ F-statistic: 8.398 on 1 and 21 DF,  p-value: 0.008605</code></pre>
 </div>
 </div>
 <p>Checking Assumptions:</p>
-<p>The diagnostic plots look good. Residuals look homoscedastic (constant variance) based on residuals vs fitted plot and scale location plot. Residuals (errors) appear to be normally distributed based on q-q plot.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(salinity<span class="sc">$</span>salinity_mS_cm, salinity<span class="sc">$</span>pickleweed,</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Pearson's product-moment correlation
-
-data:  salinity$salinity_mS_cm and salinity$pickleweed
-t = 2.8979, df = 21, p-value = 0.008605
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- 0.1568265 0.7757682
-sample estimates:
-      cor 
-0.5344778 </code></pre>
-</div>
-</div>
+<p>The diagnostic plots look good. Residuals look homoscedastic (constant variance) based on residuals vs fitted plot and scale location plot. Residuals (errors) appear to be normally distributed based on q-q plot. Linearity can be assumed based on scatterplot including line (seen above)</p>
+<p>Test:</p>
+<p>We found evidence to suggest that soil salinity affected pickleweed biomass. (ordinary least squares: F(1,21) = 8.4, p = 0.009, <span class="math inline">\(\alpha\)</span> = 0.05, adjusted R^2 = 0.25)</p>
 </section>
 </section>
 

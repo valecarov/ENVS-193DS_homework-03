@@ -48,6 +48,8 @@ ggplot(data = salinity,# setting up ggplot using data frame "salinity"
   labs(x = "Salinity (mS/cm", # labelling x axis
        y = "Pickleweed Biomass (g)", # labelling y axis
        title = "As Salinity Increases, Biomass Increases") + # making a title
+  geom_smooth(method = "lm", # adding linear model line
+              color = "magenta") +
   theme(plot.title.position = "plot") + # changing title position
   theme_minimal() # changing theme to minimal
 
@@ -56,7 +58,7 @@ ggplot(data = salinity,# setting up ggplot using data frame "salinity"
 ## c) Checking Assumptions and Test
 
 ```{r}
-#| label: model fitting
+#| label: least squares model
 
 salinity_lm <- lm(
   pickleweed ~ salinity_mS_cm,
@@ -65,13 +67,6 @@ salinity_lm <- lm(
 
 summary(salinity_lm) # display model
 
-```
-
-```{r}
-
-salinity_pred <- ggeffects::ggpredict(salinity_lm, # making predictions based on linear model
-                           terms = "salinity_mS_cm") 
- 
 ```
 
 ```{r}
@@ -84,12 +79,8 @@ plot(salinity_lm)
 
 Checking Assumptions:
 
-The diagnostic plots look good. Residuals look homoscedastic (constant variance) based on residuals vs fitted plot and scale location plot. Residuals (errors) appear to be normally distributed based on q-q plot.
+The diagnostic plots look good. Residuals look homoscedastic (constant variance) based on residuals vs fitted plot and scale location plot. Residuals (errors) appear to be normally distributed based on q-q plot. Linearity can be assumed based on scatterplot including line (seen above)
 
-```{r}
-#| label: pearson's r
+Test:
 
-cor.test(salinity$salinity_mS_cm, salinity$pickleweed,
-         method = "pearson")
-
-```
+We found evidence to suggest that soil salinity affected pickleweed biomass. (ordinary least squares: F(1,21) = 8.4, p = 0.009, $\alpha$ = 0.05, adjusted R\^2 = 0.25)
