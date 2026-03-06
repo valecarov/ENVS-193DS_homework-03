@@ -22,7 +22,7 @@ library(scales)
 library(ggeffects)
 library(MuMIn)
 
-salinity <- read_csv(
+salinity <- read_csv( # creating data frame
   here(
     "data",
     "salinity-pickleweed.csv"
@@ -39,7 +39,16 @@ In order to determine the strength of the relationship between salinity (mS/cm) 
 b\) Visualization
 
 ```{r}
+#| label: visualization
 
-
+ggplot(data = salinity,# setting up ggplot using data frame "salinity"
+       aes(x = salinity_mS_cm,# setting x axis
+           y = pickleweed)) + # setting y axis
+  geom_point(color = "darkorchid4") + # changing point color
+  labs(x = "Salinity (mS/cm", # labelling x axis
+       y = "Pickleweed Biomass (g)", # labelling y axis
+       title = "As Salinity Increases, Biomass Increases") + # making a title
+  theme(plot.title.position = "plot") + # changing title position
+  theme_minimal() # changing theme to minimal
 
 ```
