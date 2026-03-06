@@ -91,4 +91,14 @@ With each 1 mS/cm increase in soil salinity, pickleweed biomass increased by 2.0
 
 The results of my linear model provide evidence that as soil salinity increases, pickleweed biomass increases. Planting pickleweed in areas with higher soil salinity may increase the plant's success, however, there are some limitations to this study. First, there is likely a maximum threshold for soil salinity that if surpassed, may decrease pickleweed plant growth, so I would not recommend planting pickleweed in areas with a higher soil salinity than 10 mS/cm. Additionally, an R\^2 of 0.25 is low, suggesting there are many other variables that affect pickleweed biomass and require further testing to determine the most ideal sites for restoration.
 
-## 
+## f) Double Checking
+
+```{r}
+#| label: pearson's r
+
+cor.test(salinity$salinity_mS_cm, salinity$pickleweed, 
+         method = "pearson") # running pearson's r using salinity data frame
+
+```
+
+I found a moderate positive (Pearson's r: R(2.9,21 = 0.53, p = 0.009, $\alpha\$ = 0.05) relationship between soil salinity and pickleweed biomass. Both the pearson's r and least squares tests would lead me to interpret the results in the same way, as the p value is the same. However, with an R of 0.53, I can more definitely conclude that the relationship between salinity and pickleweed biomass is moderately positive.
