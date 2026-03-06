@@ -194,3 +194,9 @@ My visualization could look like a big pixelated minecraft apple. It could be gr
 ## b) Drawing
 
 ![My affective visualization sketch](images/applesketch.png){width="308"}
+
+## c) Draft
+
+![My affective visualization draft](images/appledraft.png)
+
+My pixel art of the Minecraft apple with gold dripping on it represents the chance every oak tree has of dropping an apple based on my data. I changed 35/110 pixels to the texture of the golden apple to represent the 125 total apples that were dropped in my survey of 400 trees. To do this, I used a website to create texture packs in Minecraft called createtextures.com and edited the existing apple texture.
