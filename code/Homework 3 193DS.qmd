@@ -32,14 +32,14 @@ salinity <- read_csv( # creating data frame
 
 # Problem 1.
 
-a\) Appropriate Test
+## a) Appropriate Test
 
 In order to determine the strength of the relationship between salinity (mS/cm) and California pickleweed biomass (g), I would use an Ordinary Least Squares (OLS) test and a Pearson's r test. An OLS provides a model equation that describes the linear relationship between a response variable and predictor variable, while a Pearson's r test tell us the strength and directionality of this relationship.
 
-b\) Visualization
+## b) Visualization
 
 ```{r}
-#| label: visualization
+#| label: scatter plot
 
 ggplot(data = salinity,# setting up ggplot using data frame "salinity"
        aes(x = salinity_mS_cm,# setting x axis
@@ -50,5 +50,46 @@ ggplot(data = salinity,# setting up ggplot using data frame "salinity"
        title = "As Salinity Increases, Biomass Increases") + # making a title
   theme(plot.title.position = "plot") + # changing title position
   theme_minimal() # changing theme to minimal
+
+```
+
+## c) Checking Assumptions and Test
+
+```{r}
+#| label: model fitting
+
+salinity_lm <- lm(
+  pickleweed ~ salinity_mS_cm,
+  data = salinity
+) # created linear regression model using salinity data frame
+
+summary(salinity_lm) # display model
+
+```
+
+```{r}
+
+salinity_pred <- ggeffects::ggpredict(salinity_lm, # making predictions based on linear model
+                           terms = "salinity_mS_cm") 
+ 
+```
+
+```{r}
+#| label: residual plots
+
+par(mfrow = c(2,2)) # making residual plots to check assumptions
+plot(salinity_lm)
+
+```
+
+Checking Assumptions:
+
+The diagnostic plots look good. Residuals look homoscedastic (constant variance) based on residuals vs fitted plot and scale location plot. Residuals (errors) appear to be normally distributed based on q-q plot.
+
+```{r}
+#| label: pearson's r
+
+cor.test(salinity$salinity_mS_cm, salinity$pickleweed,
+         method = "pearson")
 
 ```
