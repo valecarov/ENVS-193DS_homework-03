@@ -107,7 +107,7 @@ I found a moderate positive (Pearson's r: R(2.9,21 = 0.53, p = 0.009, $\alpha\$ 
 
 For my personal data experiment, I decided to test the common myth that in Minecraft, allowing the leaves of an oak tree to decay naturally will provide more apples than if you were to punch the leaves by hand. To perform this test, I grew 100 (approximately 5700 leaf blocks) oak trees on a superflat world over a large plot of running water that leads to a hopper attached to a chest to ensure all dropped items are collected. First, I broke all of the leaves by hand and collected the apples. Then, I reloaded the save and broke the logs and allowed the leaves to decay naturally. I repeated these steps in order to collect more data.
 
-# a) Plots
+## a) Plots
 
 ```{r}
 #| label: creating data frame
@@ -130,7 +130,7 @@ ggplot(data = apple_total, # setting up gg plot with data frame
        aes(x = break_type,# setting x and y axis
            y = total,
            fill = break_type)) + # color by break type
-  geom_col() + # column chart
+  geom_col(width = 0.5) + # column chart
   scale_fill_manual( # setting custom colors
     values = c(
       "decay" = "darkgreen",
@@ -139,14 +139,52 @@ ggplot(data = apple_total, # setting up gg plot with data frame
   ) +
   labs(x = "Break Type", # setting labels
        y = "Total Number of Apples per 200 Trees",
-       title = "No Difference in Apple Drop Rate Between Break Types",
+       title = "No Difference in Total Apples Between Break Types",
        subtitle = "03-05-2026") +
   theme_minimal() + # changing theme
   theme(legend.position = "none") # removing legend
 ```
 
 ```{r}
+#| label: calculating percentages
 
-
+apple_percent <- apple_total |> # create new data frame for percentages
+  group_by(break_type) |> 
+  mutate(percentage = total / 11400) # calculate percentage
 
 ```
+
+```{r}
+
+ggplot(data = apple_percent,# create new ggplot with percent data frame
+       aes(x = break_type, # set x and y axis
+           y = percentage,
+           fill = break_type)) + # color by break type
+  geom_col(width = 0.5) + # column chart
+  scale_fill_manual( # set custom colors
+    values = c(
+      decay = "darkseagreen4",
+      punch = "deeppink4"
+    )
+  ) +
+  theme_minimal() + # change theme
+  labs(x = "Break Type", # set labels
+       y = "Percent of Apples per Leaf Block",
+       title = "No Difference In Apple Drop Rate Between Break Types",
+       subtitle = "03-05-2026") +
+  scale_y_continuous(labels = scales::percent, # change y axis to percentages
+                     breaks = scales::pretty_breaks(n =8)) + # make brakes look nicer
+  theme(legend.position = "none") +  # remove legend position
+  geom_label(aes(label = round(percentage * 100,3))) # add labels to columns and round to 3 digits
+
+```
+
+## b) Caption
+
+Plot 1: Compares the total number of apples that dropped from decayed leaves to punched leaves. In total, the decayed leaves dropped 61 apples while the punched leaves dropped 63 apples per 200 trees or approximately 11400 leaves.
+
+Plot 2: Compares the apple drop rate percentage between decayed leaves and punched leaves. Decayed leaves had a drop rate of 0.535% while punched leaves had a drop rate of 0.561
+
+# Problem 3
+
+## a) What visualization could look like

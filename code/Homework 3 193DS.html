@@ -267,9 +267,8 @@ sample estimates:
 <section id="problem-2" class="level1">
 <h1>Problem 2</h1>
 <p>For my personal data experiment, I decided to test the common myth that in Minecraft, allowing the leaves of an oak tree to decay naturally will provide more apples than if you were to punch the leaves by hand. To perform this test, I grew 100 (approximately 5700 leaf blocks) oak trees on a superflat world over a large plot of running water that leads to a hopper attached to a chest to ensure all dropped items are collected. First, I broke all of the leaves by hand and collected the apples. Then, I reloaded the save and broke the logs and allowed the leaves to decay naturally. I repeated these steps in order to collect more data.</p>
-</section>
-<section id="a-plots" class="level1">
-<h1>a) Plots</h1>
+<section id="a-plots" class="level2">
+<h2 class="anchored" data-anchor-id="a-plots">a) Plots</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>apple <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>( <span class="co"># creating personal data frame</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(</span>
@@ -286,7 +285,7 @@ sample estimates:
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> break_type,<span class="co"># setting x and y axis</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> total,</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> break_type)) <span class="sc">+</span> <span class="co"># color by break type</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span> <span class="co"># column chart</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="co"># column chart</span></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>( <span class="co"># setting custom colors</span></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">"decay"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>,</span>
@@ -295,7 +294,7 @@ sample estimates:
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Break Type"</span>, <span class="co"># setting labels</span></span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Total Number of Apples per 200 Trees"</span>,</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"No Difference in Apple Drop Rate Between Break Types"</span>,</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"No Difference in Total Apples Between Break Types"</span>,</span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"03-05-2026"</span>) <span class="sc">+</span></span>
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="co"># changing theme</span></span>
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="co"># removing legend</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -307,6 +306,52 @@ sample estimates:
 </div>
 </div>
 </div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>apple_percent <span class="ot">&lt;-</span> apple_total <span class="sc">|&gt;</span> <span class="co"># create new data frame for percentages</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(break_type) <span class="sc">|&gt;</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percentage =</span> total <span class="sc">/</span> <span class="dv">11400</span>) <span class="co"># calculate percentage</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> apple_percent,<span class="co"># create new ggplot with percent data frame</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> break_type, <span class="co"># set x and y axis</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> percentage,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> break_type)) <span class="sc">+</span> <span class="co"># color by break type</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="co"># column chart</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>( <span class="co"># set custom colors</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">decay =</span> <span class="st">"darkseagreen4"</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">punch =</span> <span class="st">"deeppink4"</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="co"># change theme</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Break Type"</span>, <span class="co"># set labels</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Percent of Apples per Leaf Block"</span>,</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"No Difference In Apple Drop Rate Between Break Types"</span>,</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"03-05-2026"</span>) <span class="sc">+</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent, <span class="co"># change y axis to percentages</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> scales<span class="sc">::</span><span class="fu">pretty_breaks</span>(<span class="at">n =</span><span class="dv">8</span>)) <span class="sc">+</span> <span class="co"># make brakes look nicer</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span>  <span class="co"># remove legend position</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(percentage <span class="sc">*</span> <span class="dv">100</span>,<span class="dv">3</span>))) <span class="co"># add labels to columns and round to 3 digits</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Homework-3-193DS_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="b-caption" class="level2">
+<h2 class="anchored" data-anchor-id="b-caption">b) Caption</h2>
+<p>Plot 1: Compares the total number of apples that dropped from decayed leaves to punched leaves. In total, the decayed leaves dropped 61 apples while the punched leaves dropped 63 apples per 200 trees or approximately 11400 leaves.</p>
+<p>Plot 2: Compares the apple drop rate percentage between decayed leaves and punched leaves. Decayed leaves had a drop rate of 0.535% while punched leaves had a drop rate of 0.561</p>
+</section>
+</section>
+<section id="problem-3" class="level1">
+<h1>Problem 3</h1>
+<section id="a-what-visualization-could-look-like" class="level2">
+<h2 class="anchored" data-anchor-id="a-what-visualization-could-look-like">a) What visualization could look like</h2>
+</section>
 </section>
 
 </main>
