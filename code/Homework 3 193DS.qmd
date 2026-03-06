@@ -188,3 +188,9 @@ Plot 2: Compares the apple drop rate percentage between decayed leaves and punch
 # Problem 3
 
 ## a) What visualization could look like
+
+My visualization could look like a big pixelated minecraft apple. It could be grayscale except for the percentage of trees that dropped apples (about 1/3) and be split down the middle to represent both categories (punched vs decayed). One side could be red, the other could be green.
+
+## b) Drawing
+
+![My affective visualization sketch](images/applesketch.png){width="308"}
