@@ -22,10 +22,24 @@ library(scales)
 library(ggeffects)
 library(MuMIn)
 
-salinity <- read_xlsx(
+salinity <- read_csv(
   here(
     "data",
     "salinity-pickleweed.csv"
   ))
+
+```
+
+# Problem 1.
+
+a\) Appropriate Test
+
+In order to determine the strength of the relationship between salinity (mS/cm) and California pickleweed biomass (g), I would use an Ordinary Least Squares (OLS) test and a Pearson's r test. An OLS provides a model equation that describes the linear relationship between a response variable and predictor variable, while a Pearson's r test tell us the strength and directionality of this relationship.
+
+b\) Visualization
+
+```{r}
+
+
 
 ```
