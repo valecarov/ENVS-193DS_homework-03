@@ -102,3 +102,51 @@ cor.test(salinity$salinity_mS_cm, salinity$pickleweed,
 ```
 
 I found a moderate positive (Pearson's r: R(2.9,21 = 0.53, p = 0.009, $\alpha\$ = 0.05) relationship between soil salinity and pickleweed biomass. Both the pearson's r and least squares tests would lead me to interpret the results in the same way, as the p value is the same. However, with an R of 0.53, I can more definitely conclude that the relationship between salinity and pickleweed biomass is moderately positive.
+
+# Problem 2
+
+For my personal data experiment, I decided to test the common myth that in Minecraft, allowing the leaves of an oak tree to decay naturally will provide more apples than if you were to punch the leaves by hand. To perform this test, I grew 100 (approximately 5700 leaf blocks) oak trees on a superflat world over a large plot of running water that leads to a hopper attached to a chest to ensure all dropped items are collected. First, I broke all of the leaves by hand and collected the apples. Then, I reloaded the save and broke the logs and allowed the leaves to decay naturally. I repeated these steps in order to collect more data.
+
+# a) Plots
+
+```{r}
+#| label: creating data frame
+
+apple <- read_xlsx( # creating personal data frame
+  here(
+    "data",
+    "apple.xlsx"
+  ))
+
+apple_total <- apple |> # creating data frame for total apples
+  group_by(break_type) |> # grouping by break type
+  summarise(total =sum(apples),) # count total
+
+```
+
+```{r}
+
+ggplot(data = apple_total, # setting up gg plot with data frame
+       aes(x = break_type,# setting x and y axis
+           y = total,
+           fill = break_type)) + # color by break type
+  geom_col() + # column chart
+  scale_fill_manual( # setting custom colors
+    values = c(
+      "decay" = "darkgreen",
+      "punch" = "brown"
+    )
+  ) +
+  labs(x = "Break Type", # setting labels
+       y = "Total Number of Apples per 200 Trees",
+       title = "No Difference in Apple Drop Rate Between Break Types",
+       subtitle = "03-05-2026") +
+  theme_minimal() + # changing theme
+  theme(legend.position = "none") # removing legend
+```
+
+```{r}
+
+
+
+```
