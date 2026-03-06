@@ -1,0 +1,31 @@
+---
+title: "Homework 3 193DS"
+author: "Valentina Caro"
+date: "03-05-2026"
+format: html
+editor: visual
+execute:
+  message: false 
+  warning: false
+---
+
+## Set Up
+
+```{r}
+#| label: reading in packages + data
+
+library(tidyverse)
+library(here)
+library(janitor)
+library(readxl)
+library(scales)
+library(ggeffects)
+library(MuMIn)
+
+salinity <- read_xlsx(
+  here(
+    "data",
+    "salinity-pickleweed.csv"
+  ))
+
+```
